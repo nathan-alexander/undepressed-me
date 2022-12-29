@@ -11,8 +11,8 @@ export default function MessageCardGrid() {
         return <div>Failed to load</div>
     }
     if (data) {
-        messageCards = data.map((message) => {
-            return <MessageCard message={message} />
+        messageCards = data.map((message, index) => {
+            return <MessageCard key={index} message={message} />
         })
         return <div className='flex gap-4'>{messageCards}</div>
     }
