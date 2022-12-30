@@ -6,7 +6,7 @@ const ThemeToggle = dynamic(() => import('./ThemeToggle'), { ssr: false })
 export default function Header() {
     const session = useSession()
     return (
-        <div className='bg-offwhite dark:bg-slate-800 flex justify-between p-4 items-center'>
+        <div className='bg-offwhite dark:bg-slate-900 flex justify-between p-4 items-center'>
             <Link href='/'>Header</Link>
             <div className='w-1/6 flex flex-row-reverse gap-8 items-center'>
                 <ThemeToggle />

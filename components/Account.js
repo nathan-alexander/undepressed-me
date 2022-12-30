@@ -6,6 +6,7 @@ export default function Account({ session }) {
     const user = useUser()
     const [loading, setLoading] = useState(true)
     const [username, setUsername] = useState(null)
+    const [fullname, setFullname] = useState(null)
     const [avatar_url, setAvatarUrl] = useState(null)
 
     useEffect(() => {
@@ -18,7 +19,7 @@ export default function Account({ session }) {
 
             let { data, error, status } = await supabase
                 .from('profiles')
-                .select(`username, avatar_url`)
+                .select(`username, full_name, avatar_url`)
                 .eq('id', user.id)
                 .single()
 
@@ -28,7 +29,7 @@ export default function Account({ session }) {
 
             if (data) {
                 setUsername(data.username)
-
+                setFullname(data.full_name)
                 setAvatarUrl(data.avatar_url)
             }
         } catch (error) {
@@ -39,68 +40,89 @@ export default function Account({ session }) {
         }
     }
 
-    async function updateProfile({ username, avatar_url }) {
+    async function updateProfile({ username, avatar_url, fullname }) {
         try {
             setLoading(true)
-
             const updates = {
                 id: user.id,
                 username,
                 avatar_url,
+                full_name: fullname,
                 updated_at: new Date().toISOString(),
             }
 
             let { error } = await supabase.from('profiles').upsert(updates)
             if (error) throw error
-            alert('Profile updated!')
         } catch (error) {
-            alert('Error updating the data!')
-            console.log(error)
         } finally {
             setLoading(false)
         }
     }
 
     return (
-        <div className='form-widget'>
-            <div>
-                <label htmlFor='email'>Email</label>
-                <input
-                    id='email'
-                    type='text'
-                    value={session.user.email}
-                    disabled
-                />
-            </div>
-            <div>
-                <label htmlFor='username'>Username</label>
-                <input
-                    id='username'
-                    type='text'
-                    value={username || ''}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-            </div>
-            <div>
-                <button
-                    className='button primary block'
-                    onClick={() =>
-                        updateProfile({ username, website, avatar_url })
-                    }
-                    disabled={loading}
-                >
-                    {loading ? 'Loading ...' : 'Update'}
-                </button>
-            </div>
+        <>
+            <div className='form-widget mx-auto my-4 w-100 md:w-10/12'>
+                <div className='bg-white dark:bg-slate-800 rounded-md'>
+                    <div className='border-sky-500 border-b-4 p-4 flex justify-between'>
+                        <h1 className='text-xl'>Account Settings</h1>
+                        <div>
+                            <button
+                                className={`bg-green hover:bg-blue text-white rounded-md p-1 text-sm`}
+                                onClick={() =>
+                                    updateProfile({
+                                        username,
+                                        avatar_url,
+                                        fullname,
+                                    })
+                                }
+                                disabled={loading}
+                            >
+                                {loading ? 'Loading ...' : 'Update'}
+                            </button>
+                        </div>
+                    </div>
+                    <div className='px-4 py-2 flex gap-2 flex-col'>
+                        <label htmlFor='email'>Email</label>{' '}
+                        <input
+                            id='email'
+                            type='text'
+                            value={session.user.email}
+                            disabled
+                            className='w-1/2 disabled:border-none'
+                        />
+                    </div>
+                    <div className='px-4 py-2 flex gap-2 flex-col'>
+                        <label htmlFor='username'>Username</label>{' '}
+                        <input
+                            id='username'
+                            type='text'
+                            value={username || ''}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className='w-1/2 rounded focus:border-green'
+                        />
+                    </div>
 
-            <div>
-                <button
-                    className='button block'
-                    onClick={() => supabase.auth.signOut()}
-                >
-                    Sign Out
-                </button>
+                    <div className='px-4 py-2 flex gap-2 flex-col'>
+                        <label htmlFor='fullname'>Name</label>{' '}
+                        <input
+                            id='fullname'
+                            type='text'
+                            value={fullname || ''}
+                            onChange={(e) => setFullname(e.target.value)}
+                            className='w-1/2 rounded focus:border-green'
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <button
+                        className='bg-blue text-white rounded-md p-2 my-4'
+                        onClick={() => supabase.auth.signOut()}
+                    >
+                        Sign Out
+                    </button>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
