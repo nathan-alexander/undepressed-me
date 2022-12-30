@@ -27,6 +27,23 @@ export default function MessageCardGrid() {
         if (error) console.log('error', error)
         else setMessages(messages)
     }
+
+    supabase
+        .channel('public:messages')
+        .on(
+            'postgres_changes',
+            {
+                event: 'INSERT',
+                schema: 'public',
+                table: 'messages',
+            },
+            () => {
+                fetchMessages()
+            }
+        )
+        .subscribe()
+    const channels = supabase.getChannels()
+
     return (
         <div className='grid grid-cols-12 gap-2'>
             {messages.map((message) => (
