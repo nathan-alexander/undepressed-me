@@ -10,9 +10,15 @@ export default function Header() {
             <Link href='/'>Header</Link>
             <div className='w-1/6 flex flex-row-reverse gap-8 items-center'>
                 <ThemeToggle />
-                <Link href='/profile'>
-                    {!session ? <h5>Login</h5> : <h5>Account</h5>}
-                </Link>
+                {!session ? (
+                    <Link href='/login'>
+                        <h5>Log in</h5>
+                    </Link>
+                ) : (
+                    <Link href='/profile'>
+                        <h5>Account</h5>
+                    </Link>
+                )}
             </div>
         </div>
     )

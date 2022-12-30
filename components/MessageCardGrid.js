@@ -14,6 +14,6 @@ export default function MessageCardGrid() {
         messageCards = data.map((message, index) => {
             return <MessageCard key={index} message={message} />
         })
-        return <div className='flex gap-4'>{messageCards}</div>
+        return <div className='grid grid-cols-12 gap-2'>{messageCards}</div>
     }
 }

@@ -11,6 +11,22 @@ let messageData = [
         message: 'Take it day by day! Sending love!',
         user: 'Piper',
     },
+    {
+        message: 'Take it day by day! Sending love!',
+        user: 'Piper',
+    },
+    {
+        message: 'Take it day by day! Sending love!',
+        user: 'Piper',
+    },
+    {
+        message: 'Take it day by day! Sending love!',
+        user: 'Piper',
+    },
+    {
+        message: 'Take it day by day! Sending love!',
+        user: 'Piper',
+    },
 ]
 
 export default function handler(req, res) {

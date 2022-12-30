@@ -5,9 +5,9 @@ export default function Layout({ children }) {
     return (
         <>
             <Header />
-
-            <main>{children}</main>
-
+            <div className='bg-offwhite dark:bg-slate-900 h-screen p-8'>
+                {children}
+            </div>
             <Footer />
         </>
     )

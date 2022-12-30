@@ -4,11 +4,5 @@ import Login from './login'
 export default function Profile() {
     const session = useSession()
 
-    return (
-        <>
-            <main className='bg-offwhite dark:bg-slate-900 h-screen p-8'>
-                {!session ? <Login /> : <Account session={session} />}
-            </main>
-        </>
-    )
+    return <>{!session ? <Login /> : <Account session={session} />}</>
 }
