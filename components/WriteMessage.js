@@ -1,9 +1,26 @@
 import { useState } from 'react'
 import { useUser } from '@supabase/auth-helpers-react'
+import { supabase } from '../lib/initSupabase'
 export default function WriteMessage() {
     const [message, setMessage] = useState(null)
     const user = useUser()
 
+    async function sendMessage(message) {
+        try {
+            const messageObject = {
+                user_id: user.id,
+                message_text: message,
+            }
+            let { error } = await supabase
+                .from('messages')
+                .insert(messageObject)
+            if (error) throw error
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setMessage(null)
+        }
+    }
     return (
         <>
             <h1 className='text-2xl bold'>Send Love</h1>

@@ -1,19 +1,37 @@
-import useSWR from 'swr'
-
+import { supabase } from '../lib/initSupabase'
+import { useState, useEffect } from 'react'
 import MessageCard from './MessageCard'
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json())
-
 export default function MessageCardGrid() {
-    const { data, error, isLoading } = useSWR('/api/messages', fetcher)
-    let messageCards
-    if (error) {
-        return <div>Failed to load</div>
+    const [messages, setMessages] = useState([])
+
+    useEffect(() => {
+        fetchMessages()
+    }, [])
+
+    const fetchMessages = async () => {
+        let { data: messages, error } = await supabase
+            .from('messages')
+            .select(
+                `
+                id,
+                message_text,
+                profiles (
+                    username,
+                    full_name
+                )
+            `
+            )
+            .order('created_at', true)
+
+        if (error) console.log('error', error)
+        else setMessages(messages)
     }
-    if (data) {
-        messageCards = data.map((message, index) => {
-            return <MessageCard key={index} message={message} />
-        })
-        return <div className='grid grid-cols-12 gap-2'>{messageCards}</div>
-    }
+    return (
+        <div className='grid grid-cols-12 gap-2'>
+            {messages.map((message) => (
+                <MessageCard key={message.id} message={message} />
+            ))}
+        </div>
+    )
 }

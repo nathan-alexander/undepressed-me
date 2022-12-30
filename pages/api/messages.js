@@ -1,34 +1,24 @@
-let messageData = [
-    {
-        message: 'Great job',
-        user: 'Nate',
-    },
-    {
-        message: 'You got this!',
-        user: 'Gillian',
-    },
-    {
-        message: 'Take it day by day! Sending love!',
-        user: 'Piper',
-    },
-    {
-        message: 'Take it day by day! Sending love!',
-        user: 'Piper',
-    },
-    {
-        message: 'Take it day by day! Sending love!',
-        user: 'Piper',
-    },
-    {
-        message: 'Take it day by day! Sending love!',
-        user: 'Piper',
-    },
-    {
-        message: 'Take it day by day! Sending love!',
-        user: 'Piper',
-    },
-]
+import { createClient } from '@supabase/supabase-js'
 
-export default function handler(req, res) {
-    res.status(200).json(messageData)
+const db = process.env.NEXT_PUBLIC_SUPABASE_URL
+const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabase = createClient(db, key)
+export default async function handler(req, res) {
+    try {
+        let { data, error, status } = await supabase
+            .from('messages')
+            .select('message_text')
+
+        if (error && status !== 406) {
+            throw error
+        }
+
+        if (data) {
+            console.log(data)
+            res.status(200).json(data)
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(400).json(error)
+    }
 }
