@@ -15,9 +15,14 @@ export default function Header() {
                         <h5>Log in</h5>
                     </Link>
                 ) : (
-                    <Link href='/profile'>
-                        <h5>Account</h5>
-                    </Link>
+                    <>
+                        <Link href='/profile'>
+                            <h5>Account</h5>
+                        </Link>
+                        <Link href='journal'>
+                            <h5>Journal</h5>
+                        </Link>
+                    </>
                 )}
             </div>
         </div>

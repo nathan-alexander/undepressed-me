@@ -56,10 +56,15 @@ export default function JournalEntry({ session }) {
         }
     }
 
+    function resetJournal() {
+        setTitle(null)
+        setText(null)
+    }
+
     return (
         <>
             <div className='form-widget mx-auto my-4 w-100 md:w-10/12'>
-                <div className='bg-white dark:bg-slate-800 rounded-md'>
+                <div className='bg-white dark:bg-slate-800 rounded-md p-4'>
                     <h1 className='text-xl'>Journal for Today</h1>
                     <div>
                         <label htmlFor='title'>Title</label>
@@ -68,7 +73,7 @@ export default function JournalEntry({ session }) {
                             type='text'
                             value={title || ''}
                             onChange={(e) => setTitle(e.target.value)}
-                            className='dark:bg-slate-700'
+                            className='block p-2.5 w-full text-md rounded-lg border border-gray-300 dark:bg-slate-700'
                         />
                     </div>
                     <div>
@@ -78,7 +83,8 @@ export default function JournalEntry({ session }) {
                             type='text'
                             value={text || ''}
                             onChange={(e) => setText(e.target.value)}
-                            className='dark:bg-slate-700'
+                            rows='4'
+                            className='block p-2.5 w-full text-sm gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:border-sky-500 dark:bg-slate-700'
                         />
                     </div>
                     <button
@@ -89,9 +95,16 @@ export default function JournalEntry({ session }) {
                                 isPublic,
                             })
                         }
+                        className='bg-green hover:bg-green-900 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
                         disabled={loading}
                     >
-                        {loading ? 'Saving...' : 'Save Journal'}
+                        {loading ? 'Saving...' : 'Save'}
+                    </button>
+                    <button
+                        onClick={() => resetJournal()}
+                        className='bg-orange hover:bg-red text-white rounded-md py-2 px-4 text-md my-4 mx-2'
+                    >
+                        Reset
                     </button>
                 </div>
             </div>
