@@ -22,7 +22,7 @@ export default function MessageCardGrid() {
                 )
             `
             )
-            .order('created_at', true)
+            .order('created_at', false)
 
         if (error) console.log('error', error)
         else setMessages(messages)
