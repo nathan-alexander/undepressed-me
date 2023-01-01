@@ -4,12 +4,15 @@ export default function ThemeToggle() {
     const { theme, setTheme } = useTheme()
     return (
         <button
-            className='text-light-gray dark:text-yellow p-2 border rounded'
             onClick={() => {
                 setTheme(theme === 'dark' ? 'light' : 'dark')
             }}
         >
-            {theme === 'dark' ? 'Light' : 'Dark'}
+            {theme === 'dark' ? (
+                <Image src='/moon.png' width='24' height='24' alt='Moon Icon' />
+            ) : (
+                <Image src='/sun.png' width='24' height='24' alt='Sun Icon' />
+            )}
         </button>
     )
 }

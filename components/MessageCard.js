@@ -5,7 +5,7 @@ export default function MessageCard({ message }) {
                 {message.message_text}
             </h1>
             <p className='text-gray text-xs md:text-sm'>
-                {message.profiles.username}
+                {message.anonymous ? 'Anonymous' : message.profiles.username}
             </p>
         </div>
     )

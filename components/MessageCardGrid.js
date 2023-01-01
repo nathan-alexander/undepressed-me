@@ -16,6 +16,7 @@ export default function MessageCardGrid() {
                 `
                 id,
                 message_text,
+                anonymous,
                 profiles (
                     username,
                     full_name

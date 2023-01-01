@@ -11,6 +11,27 @@ export default function WriteMessage() {
                 const messageObject = {
                     user_id: user.id,
                     message_text: message,
+                    anonymous: false,
+                }
+                let { error } = await supabase
+                    .from('messages')
+                    .insert(messageObject)
+                if (error) throw error
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setMessage('')
+            }
+        }
+    }
+
+    async function sendMessageAnon(message) {
+        if (message.length > 1) {
+            try {
+                const messageObject = {
+                    user_id: user.id,
+                    message_text: message,
+                    anonymous: true,
                 }
                 let { error } = await supabase
                     .from('messages')
@@ -24,7 +45,7 @@ export default function WriteMessage() {
         }
     }
     return (
-        <div className='bg-white dark:bg-slate-800 rounded-md p-4'>
+        <div className='bg-white dark:bg-slate-800 rounded-md drop-shadow-md p-4'>
             <h1 className='text-2xl bold'>Send Love</h1>
             <p className='text-lg text-gray-dark dark:text-gray-light my-2'>
                 Write an encouraging message for other users of the app to see.
@@ -43,6 +64,12 @@ export default function WriteMessage() {
                 className='bg-green hover:bg-green-900 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
             >
                 Send
+            </button>
+            <button
+                onClick={(e) => sendMessageAnon(message)}
+                className='bg-green hover:bg-green-900 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
+            >
+                Send Anonymously
             </button>
         </div>
     )
