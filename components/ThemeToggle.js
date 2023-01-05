@@ -15,6 +15,7 @@ export default function ThemeToggle() {
                     width='24'
                     height='24'
                     alt='Moon Icon'
+                    style={{ minWidth: '24px', minHeight: '24px' }}
                 />
             ) : (
                 <Image
@@ -22,6 +23,7 @@ export default function ThemeToggle() {
                     width='24'
                     height='24'
                     alt='Sun Icon'
+                    style={{ minWidth: '24px', minHeight: '24px' }}
                 />
             )}
         </button>
