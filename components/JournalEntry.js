@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useUser } from '@supabase/auth-helpers-react'
 import { supabase } from '../lib/initSupabase'
+import Image from 'next/image'
 export default function JournalEntry({ session }) {
     const [title, setTitle] = useState(null)
     const [text, setText] = useState(null)
     const [isPublic, setIsPublic] = useState(false)
     const [mood, setMood] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [entryId, setEntryId] = useState(null)
     const user = useUser()
 
     useEffect(() => {
@@ -21,6 +23,7 @@ export default function JournalEntry({ session }) {
                 .from('journal_entries')
                 .select('*')
                 .eq('user_id', user.id)
+                .eq('created_at', new Date().toDateString())
                 .single()
 
             if (error && status !== 406) {
@@ -31,6 +34,8 @@ export default function JournalEntry({ session }) {
                 setTitle(data.title)
                 setText(data.text)
                 setIsPublic(data.public)
+                setMood(data.mood)
+                setEntryId(data.id)
             }
         } catch (error) {
             console.log(error)
@@ -38,17 +43,34 @@ export default function JournalEntry({ session }) {
             setLoading(false)
         }
     }
+
     async function saveJournal({ title, text, isPublic, mood }) {
+        //if journal already exists for today, update it
+        //else create a new journal entry
+
         try {
             setLoading(true)
             const entry = {
                 user_id: user.id,
                 title,
                 text,
+                mood,
                 public: isPublic,
+                created_at: new Date().toDateString(),
             }
-            let { error } = await supabase.from('journal_entries').insert(entry)
-            if (error) throw error
+
+            if (entryId) {
+                let { error } = await supabase
+                    .from('journal_entries')
+                    .update(entry)
+                    .eq('id', entryId)
+                if (error) throw error
+            } else {
+                let { error } = await supabase
+                    .from('journal_entries')
+                    .insert(entry)
+                if (error) throw error
+            }
         } catch (error) {
             console.log(error)
         } finally {
@@ -59,14 +81,15 @@ export default function JournalEntry({ session }) {
     function resetJournal() {
         setTitle(null)
         setText(null)
+        setMood(null)
     }
 
     return (
         <>
-            <div className='form-widget mx-auto my-4 w-100 md:w-10/12 rounded-md drop-shadow-md'>
-                <div className='bg-white dark:bg-slate-800 rounded-md p-4'>
+            <div className='form-widget mx-auto my-4 w-100 md:w-10/12 rounded-md drop-shadow-md flex justify-center'>
+                <div className='bg-white dark:bg-slate-800 rounded-md p-4 w-4/5 mx-4'>
                     <h1 className='text-xl'>Journal for Today</h1>
-                    <div className='my-4'>
+                    <div className='my-2'>
                         <input
                             id='title'
                             type='text'
@@ -75,6 +98,123 @@ export default function JournalEntry({ session }) {
                             onChange={(e) => setTitle(e.target.value)}
                             className='block p-2.5 w-full text-md rounded-lg border border-gray-300 focus:border-sky-500 dark:bg-slate-700'
                         />
+                    </div>
+                    <div className='grid grid-cols-5 content-evenly space-x-2 rounded-xl bg-gray-200 p-2'>
+                        <div>
+                            <input
+                                type='radio'
+                                name='option'
+                                id='1'
+                                className='peer hidden'
+                                value='happy'
+                                onChange={(e) => setMood(e.target.value)}
+                                checked={mood === 'happy'}
+                            />
+                            <label
+                                htmlFor='1'
+                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:bg-green'
+                            >
+                                <Image
+                                    src={'/icons/happy.png'}
+                                    width='32'
+                                    height='32'
+                                    alt='Happy Icon'
+                                    className='inline-block'
+                                />
+                            </label>
+                        </div>
+                        <div>
+                            <input
+                                type='radio'
+                                name='option'
+                                id='2'
+                                className='peer hidden'
+                                value='okay'
+                                onChange={(e) => setMood(e.target.value)}
+                                checked={mood === 'okay'}
+                            />
+                            <label
+                                htmlFor='2'
+                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:bg-lime-500'
+                            >
+                                <Image
+                                    src={'/icons/smile.png'}
+                                    width='32'
+                                    height='32'
+                                    alt='Happy Icon'
+                                    className='inline-block'
+                                />
+                            </label>
+                        </div>
+                        <div>
+                            <input
+                                type='radio'
+                                name='option'
+                                id='3'
+                                className='peer hidden'
+                                value='meh'
+                                onChange={(e) => setMood(e.target.value)}
+                                checked={mood === 'meh'}
+                            />
+                            <label
+                                htmlFor='3'
+                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:bg-yellow'
+                            >
+                                <Image
+                                    src={'/icons/meh.png'}
+                                    width='32'
+                                    height='32'
+                                    alt='Happy Icon'
+                                    className='inline-block'
+                                />
+                            </label>
+                        </div>
+                        <div>
+                            <input
+                                type='radio'
+                                name='option'
+                                id='4'
+                                className='peer hidden'
+                                value='sad'
+                                onChange={(e) => setMood(e.target.value)}
+                                checked={mood === 'sad'}
+                            />
+                            <label
+                                htmlFor='4'
+                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:bg-orange'
+                            >
+                                <Image
+                                    src={'/icons/sad.png'}
+                                    width='32'
+                                    height='32'
+                                    alt='Happy Icon'
+                                    className='inline-block'
+                                />
+                            </label>
+                        </div>
+                        <div>
+                            <input
+                                type='radio'
+                                name='option'
+                                id='5'
+                                className='peer hidden'
+                                value='upset'
+                                onChange={(e) => setMood(e.target.value)}
+                                checked={mood === 'upset'}
+                            />
+                            <label
+                                htmlFor='5'
+                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:bg-red-500'
+                            >
+                                <Image
+                                    src={'/icons/crying.png'}
+                                    width='32'
+                                    height='32'
+                                    alt='Happy Icon'
+                                    className='inline-block'
+                                />
+                            </label>
+                        </div>
                     </div>
                     <div>
                         <textarea
@@ -93,6 +233,7 @@ export default function JournalEntry({ session }) {
                                 title,
                                 text,
                                 isPublic,
+                                mood,
                             })
                         }
                         className='bg-green hover:bg-green-900 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
