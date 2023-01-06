@@ -45,7 +45,7 @@ export default function WriteMessage() {
         }
     }
     return (
-        <div className='bg-zinc-50 dark:bg-slate-800 border border-zinc-300 rounded-md drop-shadow-md p-4'>
+        <div className='bg-zinc-50 dark:bg-slate-800 border border-zinc-300 rounded-md drop-shadow-md p-4 my-8'>
             <h1 className='text-2xl bold'>Send Love</h1>
             <p className='text-lg text-gray-dark dark:text-gray-light my-2'>
                 Write an encouraging message for other users of the app to see.
@@ -57,7 +57,7 @@ export default function WriteMessage() {
                 value={message}
                 placeholder='Write a message'
                 onChange={(e) => setMessage(e.target.value)}
-                className='block p-2.5 w-1/2 text-md rounded-lg border border-gray-300 focus:border-sky-500 dark:bg-slate-700'
+                className='block p-2.5 w-full md:w-3/4 text-md rounded-lg border border-gray-300 focus:border-sky-500 dark:bg-slate-700'
             />
             <button
                 onClick={(e) => sendMessage(message)}

@@ -24,7 +24,7 @@ export default function MessageCardGrid() {
                 )
             `
             )
-            .order('created_at', false)
+            .order('likes', { ascending: false })
 
         if (error) console.log('error', error)
         else setMessages(messages)
@@ -47,7 +47,7 @@ export default function MessageCardGrid() {
     const channels = supabase.getChannels()
 
     return (
-        <div className='grid grid-cols-12 gap-2'>
+        <div className='grid grid-cols-12 gap-2 '>
             {messages.map((message) => (
                 <MessageCard key={message.id} message={message} />
             ))}

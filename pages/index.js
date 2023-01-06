@@ -6,7 +6,6 @@ export default function Home() {
     const session = useSession()
     return (
         <>
-            <h1 className='text-3xl font-bold underline'>Hello!</h1>
             <MessageCardGrid />
             {session ? (
                 <WriteMessage />
