@@ -3,11 +3,13 @@ import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Profile from './profile'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { useTheme } from 'next-themes'
 
 export default function Login() {
     const supabase = useSupabaseClient()
     const session = useSession()
     const router = useRouter()
+    const { resolvedTheme } = useTheme()
     useEffect(() => {
         if (session) {
             router.replace('/profile')
@@ -22,6 +24,7 @@ export default function Login() {
                     appearance={{
                         theme: ThemeSupa,
                     }}
+                    theme={resolvedTheme === 'dark' ? 'dark' : 'default'}
                 />
             ) : (
                 <Profile />

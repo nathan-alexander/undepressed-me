@@ -17,20 +17,20 @@ export default function Header() {
 
                 {!session ? (
                     <Link href='/login'>
-                        <div className='p-2 hover:bg-sky-100 hover:dark:bg-slate-800 border rounded'>
-                            Log in
+                        <div className='p-2 text-sm md:text-lg mx-2 hover:bg-sky-100 hover:dark:bg-slate-800 rounded'>
+                            Login
                         </div>
                     </Link>
                 ) : (
                     <>
                         <Link href='/profile'>
-                            <div className='p-2 text-sm hover:bg-sky-100 hover:dark:bg-slate-800  rounded'>
+                            <div className='p-2 text-sm md:text-lg hover:bg-sky-100 hover:dark:bg-slate-800  rounded'>
                                 Account
                             </div>
                         </Link>
 
                         <Link href='journal'>
-                            <div className='p-2 text-sm hover:bg-sky-100 hover:dark:bg-slate-800  rounded'>
+                            <div className='p-2 text-sm md:text-lg hover:bg-sky-100 hover:dark:bg-slate-800  rounded'>
                                 Journal
                             </div>
                         </Link>

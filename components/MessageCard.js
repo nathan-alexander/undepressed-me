@@ -10,9 +10,11 @@ export default function MessageCard({ message }) {
         getUserLiked()
     }, [])
     const handleLike = async () => {
-        setIsLiked(!isLiked)
-        isLiked ? removeLike() : addLike()
-        setLikes(isLiked ? likes - 1 : likes + 1)
+        if (user) {
+            setIsLiked(!isLiked)
+            isLiked ? removeLike() : addLike()
+            setLikes(isLiked ? likes - 1 : likes + 1)
+        }
     }
     async function getUserLiked() {
         try {
@@ -70,7 +72,7 @@ export default function MessageCard({ message }) {
         }
     }
     return (
-        <div className='bg-sky-200 dark:bg-sky-800 rounded-md p-2 m-4 col-span-12 md:col-span-4'>
+        <div className='bg-sky-200 dark:bg-sky-800 rounded-md p-2 m-4 col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-3 lg:h-[100px]'>
             <div className='float-right flex'>
                 {isLiked ? (
                     <Image

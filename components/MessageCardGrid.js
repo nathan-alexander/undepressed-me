@@ -47,7 +47,7 @@ export default function MessageCardGrid() {
     const channels = supabase.getChannels()
 
     return (
-        <div className='grid grid-cols-12 gap-2 '>
+        <div className='grid grid-cols-12 gap-2 h-10/12 overflow-y-scroll'>
             {messages.map((message) => (
                 <MessageCard key={message.id} message={message} />
             ))}
