@@ -61,13 +61,13 @@ export default function WriteMessage() {
             />
             <button
                 onClick={(e) => sendMessage(message)}
-                className='bg-green hover:bg-green-900 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
+                className='bg-green-500 hover:bg-green-600 text-white rounded-md py-2 px-4 text-md my-4 '
             >
                 Send
             </button>
             <button
                 onClick={(e) => sendMessageAnon(message)}
-                className='bg-green hover:bg-green-900 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
+                className='bg-green-500 hover:bg-green-600 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
             >
                 Send Anonymously
             </button>
