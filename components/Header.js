@@ -8,9 +8,11 @@ export default function Header() {
     return (
         <div className='bg-sky-50 dark:bg-slate-900 flex justify-between p-6 items-center'>
             <Link href='/'>
-                <h1 className='text-2xl bold'>Undepressed.me</h1>
+                <h1 className='text-lg md:text-xl lg:text-2xl bold'>
+                    Undepressed.me
+                </h1>
             </Link>
-            <div className='w-1/6 flex flex-row-reverse gap-8 items-center'>
+            <div className='w-1/6 flex flex-row-reverse gap-2 lg:gap-8 items-center'>
                 <ThemeToggle />
 
                 {!session ? (
@@ -22,13 +24,13 @@ export default function Header() {
                 ) : (
                     <>
                         <Link href='/profile'>
-                            <div className='p-2 hover:bg-sky-100 hover:dark:bg-slate-800  rounded'>
+                            <div className='p-2 text-sm hover:bg-sky-100 hover:dark:bg-slate-800  rounded'>
                                 Account
                             </div>
                         </Link>
 
                         <Link href='journal'>
-                            <div className='p-2 hover:bg-sky-100 hover:dark:bg-slate-800  rounded'>
+                            <div className='p-2 text-sm hover:bg-sky-100 hover:dark:bg-slate-800  rounded'>
                                 Journal
                             </div>
                         </Link>

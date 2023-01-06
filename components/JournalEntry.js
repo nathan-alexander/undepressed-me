@@ -87,8 +87,8 @@ export default function JournalEntry({ session }) {
 
     return (
         <>
-            <div className='form-widget mx-auto my-4 w-100 md:w-10/12 rounded-md drop-shadow-md flex justify-center'>
-                <div className='bg-white dark:bg-slate-800 rounded-md p-4 w-4/5 mx-4'>
+            <div className='form-widget mx-auto my-4 w-full h-50vh md:w-10/12 rounded-md drop-shadow-md flex justify-center'>
+                <div className='bg-white dark:bg-slate-800 rounded-md p-4 w-full mx-4'>
                     <h1 className='text-xl'>Journal for Today</h1>
                     <div className='my-2'>
                         <input
@@ -100,7 +100,7 @@ export default function JournalEntry({ session }) {
                             className='block p-2.5 w-full text-md rounded-lg border border-gray-300 focus:border-sky-500 dark:bg-slate-700'
                         />
                     </div>
-                    <div className='grid grid-cols-5 content-evenly space-x-2 rounded-xl bg-gray-200 p-2'>
+                    <div className='grid grid-cols-5 content-evenly rounded-xl bg-gray-200 my-2'>
                         <div>
                             <input
                                 type='radio'
@@ -225,7 +225,7 @@ export default function JournalEntry({ session }) {
                             value={text || ''}
                             onChange={(e) => setText(e.target.value)}
                             rows='4'
-                            className='block p-2.5 w-full text-sm gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:border-sky-500 dark:bg-slate-700'
+                            className='block p-2.5 min-h-[200px] w-full text-sm gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:border-sky-500 dark:bg-slate-700'
                         />
                     </div>
                     <button

@@ -88,7 +88,7 @@ export default function Account({ session }) {
                             type='text'
                             value={session.user.email}
                             disabled
-                            className='w-1/2 disabled:border-none dark:bg-slate-900'
+                            className='md:w-1/2 disabled:border-none dark:bg-slate-900'
                         />
                     </div>
                     <div className='px-4 py-2 flex gap-2 flex-col'>
@@ -98,7 +98,7 @@ export default function Account({ session }) {
                             type='text'
                             value={username || ''}
                             onChange={(e) => setUsername(e.target.value)}
-                            className='w-1/2 rounded focus:border-green dark:bg-slate-700'
+                            className='md:w-1/2 rounded focus:border-green dark:bg-slate-700'
                         />
                     </div>
 
@@ -109,7 +109,7 @@ export default function Account({ session }) {
                             type='text'
                             value={fullname || ''}
                             onChange={(e) => setFullname(e.target.value)}
-                            className='w-1/2 rounded focus:border-green dark:bg-slate-700'
+                            className='md:w-1/2 rounded focus:border-green dark:bg-slate-700'
                         />
                     </div>
                 </div>
