@@ -116,7 +116,7 @@ export default function Account({ session }) {
 
                 <div>
                     <button
-                        className='bg-blue text-white rounded-md p-2 my-4'
+                        className='bg-blue-500 text-white rounded-md p-2 my-4'
                         onClick={() => supabase.auth.signOut()}
                     >
                         Sign Out
