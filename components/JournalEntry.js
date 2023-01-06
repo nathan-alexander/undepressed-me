@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useUser } from '@supabase/auth-helpers-react'
 import { supabase } from '../lib/initSupabase'
+import ThemedImage from './ThemedImage'
 import Image from 'next/image'
 export default function JournalEntry({ session }) {
     const [title, setTitle] = useState(null)
@@ -112,9 +113,9 @@ export default function JournalEntry({ session }) {
                             />
                             <label
                                 htmlFor='1'
-                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:bg-green'
+                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:font-bold peer-checked:bg-green-500 dark:peer-checked:bg-green-700'
                             >
-                                <Image
+                                <ThemedImage
                                     src={'/icons/happy.png'}
                                     width='32'
                                     height='32'
@@ -135,9 +136,9 @@ export default function JournalEntry({ session }) {
                             />
                             <label
                                 htmlFor='2'
-                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:bg-lime-500'
+                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:font-bold peer-checked:bg-lime-500 dark:peer-checked:bg-lime-700'
                             >
-                                <Image
+                                <ThemedImage
                                     src={'/icons/smile.png'}
                                     width='32'
                                     height='32'
@@ -158,9 +159,9 @@ export default function JournalEntry({ session }) {
                             />
                             <label
                                 htmlFor='3'
-                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:bg-yellow'
+                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:font-bold peer-checked:bg-yellow-500 dark:peer-checked:bg-yellow-700'
                             >
-                                <Image
+                                <ThemedImage
                                     src={'/icons/meh.png'}
                                     width='32'
                                     height='32'
@@ -181,9 +182,9 @@ export default function JournalEntry({ session }) {
                             />
                             <label
                                 htmlFor='4'
-                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:bg-orange'
+                                className='block cursor-pointer select-none rounded-xl p-2 text-center  peer-checked:font-bold peer-checked:bg-orange-500 dark:peer-checked:bg-orange-700'
                             >
-                                <Image
+                                <ThemedImage
                                     src={'/icons/sad.png'}
                                     width='32'
                                     height='32'
@@ -204,9 +205,9 @@ export default function JournalEntry({ session }) {
                             />
                             <label
                                 htmlFor='5'
-                                className='block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:bg-red-500'
+                                className='block cursor-pointer select-none rounded-xl p-2 text-center  peer-checked:font-bold peer-checked:bg-red-500 dark:peer-checked:bg-red-700'
                             >
-                                <Image
+                                <ThemedImage
                                     src={'/icons/crying.png'}
                                     width='32'
                                     height='32'
@@ -236,14 +237,14 @@ export default function JournalEntry({ session }) {
                                 mood,
                             })
                         }
-                        className='bg-green hover:bg-green-900 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
+                        className='bg-green-500 hover:bg-green-600 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
                         disabled={loading}
                     >
                         {loading ? 'Saving...' : 'Save'}
                     </button>
                     <button
                         onClick={() => resetJournal()}
-                        className='bg-orange hover:bg-red text-white rounded-md py-2 px-4 text-md my-4 mx-2'
+                        className='bg-orange-500 hover:bg-orange-600 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
                     >
                         Reset
                     </button>
