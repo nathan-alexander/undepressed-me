@@ -62,12 +62,12 @@ export default function Account({ session }) {
     return (
         <>
             <div className='form-widget mx-auto my-4 w-100 md:w-10/12'>
-                <div className='bg-white dark:bg-slate-800 rounded-md'>
+                <div className='bg-zinc-50 dark:bg-slate-800 border border-zinc-300 rounded-md p-4'>
                     <div className='border-sky-500 border-b-4 p-4 flex justify-between'>
                         <h1 className='text-xl'>Account Settings</h1>
                         <div>
                             <button
-                                className={`bg-green hover:bg-blue text-white rounded-md p-1 text-sm`}
+                                className={`bg-green-500 hover:bg-green-600 text-white rounded-md p-1 text-sm`}
                                 onClick={() =>
                                     updateProfile({
                                         username,
@@ -116,7 +116,7 @@ export default function Account({ session }) {
 
                 <div>
                     <button
-                        className='bg-blue-500 text-white rounded-md p-2 my-4'
+                        className='bg-blue-500 hover:bg-blue-600 text-white rounded-md p-2 my-4'
                         onClick={() => supabase.auth.signOut()}
                     >
                         Sign Out

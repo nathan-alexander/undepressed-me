@@ -45,7 +45,7 @@ export default function WriteMessage() {
         }
     }
     return (
-        <div className='bg-white dark:bg-slate-800 rounded-md drop-shadow-md p-4'>
+        <div className='bg-zinc-50 dark:bg-slate-800 border border-zinc-300 rounded-md drop-shadow-md p-4'>
             <h1 className='text-2xl bold'>Send Love</h1>
             <p className='text-lg text-gray-dark dark:text-gray-light my-2'>
                 Write an encouraging message for other users of the app to see.
