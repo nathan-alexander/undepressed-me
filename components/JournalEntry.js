@@ -87,9 +87,11 @@ export default function JournalEntry({ session }) {
 
     return (
         <>
-            <div className='form-widget mx-auto my-4 w-full h-50vh md:w-10/12 rounded-md drop-shadow-md flex justify-center'>
-                <div className='bg-white dark:bg-slate-800 rounded-md p-4 w-full mx-4'>
-                    <h1 className='text-xl'>Journal for Today</h1>
+            <div className='form-widget mx-auto my-4 w-full h-50vh md:w-10/12 rounded-md drop-shadow-md flex justify-center '>
+                <div className='bg-white dark:bg-slate-800 border border-zinc-300 rounded-md p-4 w-full mx-4'>
+                    <h1 className='text-xl'>
+                        Journal for {new Date().toDateString()}
+                    </h1>
                     <div className='my-2'>
                         <input
                             id='title'
