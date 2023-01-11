@@ -6,7 +6,7 @@ const ThemeToggle = dynamic(() => import('./ThemeToggle'), { ssr: false })
 export default function Header() {
     const session = useSession()
     return (
-        <div className='bg-sky-50 dark:bg-slate-900 flex justify-between p-6 items-center'>
+        <div className='bg-sky-50 dark:bg-slate-900 flex justify-between p-6 items-center border border-zinc-300 dark:border-slate-700 border-x-0 border-t-0 border-b-1 drop-shadow-md'>
             <Link href='/'>
                 <h1 className='text-lg md:text-xl lg:text-2xl bold'>
                     Undepressed.me

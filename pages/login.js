@@ -16,7 +16,7 @@ export default function Login() {
         }
     }, [session])
     return (
-        <div className='w-3/4 mx-auto bg-zinc-50 dark:bg-gray-dark p-4 border border-zinc-300 rounded-md'>
+        <div className='w-1/2 mx-auto bg-zinc-50 dark:bg-gray-dark p-4 border border-zinc-300 rounded-md'>
             <h1 className='text-3xl font-bold'>Login</h1>
             {!session ? (
                 <Auth

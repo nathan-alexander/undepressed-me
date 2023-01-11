@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useUser } from '@supabase/auth-helpers-react'
 import { supabase } from '../lib/initSupabase'
+import subDays from 'date-fns/subDays'
+import addDays from 'date-fns/addDays'
 import ThemedImage from './ThemedImage'
 import Image from 'next/image'
+import JournalCalendar from './JournalCalendar'
 export default function JournalEntry({ session }) {
     const [title, setTitle] = useState(null)
     const [text, setText] = useState(null)
@@ -10,13 +13,14 @@ export default function JournalEntry({ session }) {
     const [mood, setMood] = useState(null)
     const [loading, setLoading] = useState(false)
     const [entryId, setEntryId] = useState(null)
+    const [selectedDate, setSelectedDate] = useState(new Date())
     const user = useUser()
 
     useEffect(() => {
-        fetchJournal()
+        fetchJournal(selectedDate.toDateString())
     }, [])
 
-    async function fetchJournal() {
+    async function fetchJournal(date) {
         try {
             setLoading(true)
 
@@ -24,7 +28,7 @@ export default function JournalEntry({ session }) {
                 .from('journal_entries')
                 .select('*')
                 .eq('user_id', user.id)
-                .eq('created_at', new Date().toDateString())
+                .eq('journal_date', date)
                 .single()
 
             if (error && status !== 406) {
@@ -37,6 +41,12 @@ export default function JournalEntry({ session }) {
                 setIsPublic(data.public)
                 setMood(data.mood)
                 setEntryId(data.id)
+            } else {
+                setTitle(null)
+                setText(null)
+                setIsPublic(false)
+                setMood(null)
+                setEntryId(null)
             }
         } catch (error) {
             console.log(error)
@@ -45,6 +55,11 @@ export default function JournalEntry({ session }) {
         }
     }
 
+    function handleDateChange(date) {
+        console.log(date)
+        setSelectedDate(date)
+        fetchJournal(date.toDateString())
+    }
     async function saveJournal({ title, text, isPublic, mood }) {
         //if journal already exists for today, update it
         //else create a new journal entry
@@ -57,7 +72,8 @@ export default function JournalEntry({ session }) {
                 text,
                 mood,
                 public: isPublic,
-                created_at: new Date().toDateString(),
+                created_at: new Date(),
+                journal_date: new Date().toDateString(),
             }
 
             if (entryId) {
@@ -90,7 +106,7 @@ export default function JournalEntry({ session }) {
             <div className='form-widget mx-auto my-4 w-full h-50vh md:w-10/12 rounded-md drop-shadow-md flex justify-center '>
                 <div className='bg-white dark:bg-slate-800 border border-zinc-300 rounded-md p-4 w-full mx-4'>
                     <h1 className='text-xl'>
-                        Journal for {new Date().toDateString()}
+                        Journal for {selectedDate.toDateString()}
                     </h1>
                     <div className='my-2'>
                         <input
@@ -252,6 +268,18 @@ export default function JournalEntry({ session }) {
                     </button>
                 </div>
             </div>
+            <button onClick={() => handleDateChange(subDays(selectedDate, 1))}>
+                Yesterday
+            </button>
+            {selectedDate.toDateString() === new Date().toDateString() ? (
+                <></>
+            ) : (
+                <button
+                    onClick={() => handleDateChange(addDays(selectedDate, 1))}
+                >
+                    Tomorrow
+                </button>
+            )}
         </>
     )
 }
