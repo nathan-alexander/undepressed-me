@@ -25,8 +25,11 @@ export default function Home() {
                     brighter tomorrow.
                 </p>
             </div>
-            <div className='my-8'>
-                <Link href='/login' className='p-4 bg-green-500 rounded-md'>
+            <div className='my-20 flex flex-col items-center'>
+                <Link
+                    href='/login'
+                    className='p-4 bg-green-500 rounded-md hover:bg-green-700'
+                >
                     {!session ? 'Join Today' : 'Account'}
                 </Link>
             </div>
