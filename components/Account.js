@@ -67,7 +67,7 @@ export default function Account({ session }) {
                         <h1 className='text-xl'>Account Settings</h1>
                         <div>
                             <button
-                                className={`bg-green-500 hover:bg-green-600 text-white rounded-md p-1 text-sm`}
+                                className={`bg-green-500 hover:bg-green-600 text-white rounded-md p-2 text-sm`}
                                 onClick={() =>
                                     updateProfile({
                                         username,

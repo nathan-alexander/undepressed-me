@@ -14,6 +14,7 @@ export default function JournalEntry({ session }) {
     const [loading, setLoading] = useState(false)
     const [entryId, setEntryId] = useState(null)
     const [selectedDate, setSelectedDate] = useState(new Date())
+    const [journalDate, setJournalDate] = useState(null)
     const user = useUser()
 
     useEffect(() => {
@@ -22,8 +23,6 @@ export default function JournalEntry({ session }) {
 
     async function fetchJournal(date) {
         try {
-            setLoading(true)
-
             let { data, error, status } = await supabase
                 .from('journal_entries')
                 .select('*')
@@ -41,6 +40,7 @@ export default function JournalEntry({ session }) {
                 setIsPublic(data.public)
                 setMood(data.mood)
                 setEntryId(data.id)
+                setJournalDate(data.journal_date)
             } else {
                 setTitle(null)
                 setText(null)
@@ -50,8 +50,6 @@ export default function JournalEntry({ session }) {
             }
         } catch (error) {
             console.log(error)
-        } finally {
-            setLoading(false)
         }
     }
 
@@ -105,9 +103,36 @@ export default function JournalEntry({ session }) {
         <>
             <div className='form-widget mx-auto my-4 w-full h-50vh md:w-10/12 rounded-md drop-shadow-md flex justify-center '>
                 <div className='bg-white dark:bg-slate-800 border border-zinc-300 rounded-md p-4 w-full mx-4'>
-                    <h1 className='text-xl'>
-                        Journal for {selectedDate.toDateString()}
-                    </h1>
+                    <div className='flex justify-between'>
+                        <button
+                            onClick={() =>
+                                handleDateChange(subDays(selectedDate, 1))
+                            }
+                            className='p-2 hover:bg-zinc-200 dark:hover:bg-slate-700 rounded-md'
+                        >
+                            Yesterday
+                        </button>
+
+                        <h1 className='text-xl p-2'>
+                            Journal for {journalDate}
+                        </h1>
+
+                        <button
+                            onClick={() =>
+                                handleDateChange(addDays(selectedDate, 1))
+                            }
+                            style={{
+                                visibility:
+                                    selectedDate.toDateString() ===
+                                    new Date().toDateString()
+                                        ? 'hidden'
+                                        : 'visible',
+                            }}
+                            className='p-2 hover:bg-zinc-200 dark:hover:bg-slate-700 rounded-md'
+                        >
+                            Tomorrow
+                        </button>
+                    </div>
                     <div className='my-2'>
                         <input
                             id='title'
@@ -258,7 +283,7 @@ export default function JournalEntry({ session }) {
                         className='bg-green-500 hover:bg-green-600 text-white rounded-md py-2 px-4 text-md my-4 mx-2'
                         disabled={loading}
                     >
-                        {loading ? 'Saving...' : 'Save'}
+                        {!loading ? 'Save' : 'Saving...'}
                     </button>
                     <button
                         onClick={() => resetJournal()}
@@ -268,18 +293,7 @@ export default function JournalEntry({ session }) {
                     </button>
                 </div>
             </div>
-            <button onClick={() => handleDateChange(subDays(selectedDate, 1))}>
-                Yesterday
-            </button>
-            {selectedDate.toDateString() === new Date().toDateString() ? (
-                <></>
-            ) : (
-                <button
-                    onClick={() => handleDateChange(addDays(selectedDate, 1))}
-                >
-                    Tomorrow
-                </button>
-            )}
+            <JournalCalendar fetchJournal={fetchJournal} />
         </>
     )
 }

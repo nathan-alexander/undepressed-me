@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useUser } from '@supabase/auth-helpers-react'
 import { supabase } from '../lib/initSupabase'
 
-export default function JournalCalendar() {
+export default function JournalCalendar({ fetchJournal }) {
     const [journalCalendar, setJournalCalendar] = useState([])
     const user = useUser()
 
@@ -28,7 +28,10 @@ export default function JournalCalendar() {
         <div className='grid grid-cols-12 gap-2'>
             {journalCalendar.map((entry) => (
                 <div key={entry.id} className='col-span-2'>
-                    <div className='bg-gray-100 rounded-lg p-2'>
+                    <div
+                        className='bg-gray-100 rounded-lg p-2'
+                        onClick={() => fetchJournal(entry.journal_date)}
+                    >
                         <div className='text-center text-gray-500 text-xs'>
                             {entry.journal_date}
                         </div>
