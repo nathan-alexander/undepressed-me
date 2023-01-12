@@ -16,11 +16,18 @@ export default function Header() {
                 <ThemeToggle />
 
                 {!session ? (
-                    <Link href='/login'>
-                        <div className='p-2 text-sm md:text-lg mx-2 hover:bg-sky-100 hover:dark:bg-slate-800 rounded'>
-                            Login
-                        </div>
-                    </Link>
+                    <>
+                        <Link href='/login'>
+                            <div className='p-2 text-sm md:text-lg mx-2 hover:bg-sky-100 hover:dark:bg-slate-800 rounded'>
+                                Login
+                            </div>
+                        </Link>
+                        <Link href='/inspire'>
+                            <div className='p-2 text-sm md:text-lg mx-2 hover:bg-sky-100 hover:dark:bg-slate-800 rounded'>
+                                Inspire
+                            </div>
+                        </Link>
+                    </>
                 ) : (
                     <>
                         <Link href='/profile'>
@@ -32,6 +39,11 @@ export default function Header() {
                         <Link href='journal'>
                             <div className='p-2 text-sm md:text-lg hover:bg-sky-100 hover:dark:bg-slate-800  rounded'>
                                 Journal
+                            </div>
+                        </Link>
+                        <Link href='/inspire'>
+                            <div className='p-2 text-sm md:text-lg mx-2 hover:bg-sky-100 hover:dark:bg-slate-800 rounded'>
+                                Inspire
                             </div>
                         </Link>
                     </>

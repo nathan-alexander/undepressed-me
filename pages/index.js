@@ -6,16 +6,30 @@ export default function Home() {
     const session = useSession()
     return (
         <>
-            <MessageCardGrid />
-            {session ? (
-                <WriteMessage />
-            ) : (
-                <Link href='/login'>
-                    <div className='text-center w-3/4 md:w-1/2 p-4 my-20 mx-auto rounded-lg bg-green-500 hover:bg-green-700'>
-                        Please log in to write a message
-                    </div>
+            <div className='text-xl flex flex-col gap-8'>
+                <h1>
+                    Say goodbye to feeling alone in your struggles with
+                    Undepressed.me.
+                </h1>
+                <p>
+                    Our web application connects you with a supportive community
+                    of individuals going through similar challenges.
+                </p>
+                <p>
+                    Send uplifting messages to others and receive encouragement
+                    in return. Keep track of your journey and progress with our
+                    easy-to-use journal.{' '}
+                </p>
+                <p>
+                    Join Undepressed.me today and start on the path to a
+                    brighter tomorrow.
+                </p>
+            </div>
+            <div className='my-8'>
+                <Link href='/login' className='p-4 bg-green-500 rounded-md'>
+                    {!session ? 'Join Today' : 'Account'}
                 </Link>
-            )}
+            </div>
         </>
     )
 }
