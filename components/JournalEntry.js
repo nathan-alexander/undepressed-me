@@ -108,13 +108,13 @@ export default function JournalEntry({ session }) {
                             onClick={() =>
                                 handleDateChange(subDays(selectedDate, 1))
                             }
-                            className='p-2 hover:bg-zinc-200 dark:hover:bg-slate-700 rounded-md'
+                            className='p-2 hover:bg-zinc-200 dark:hover:bg-slate-700 rounded-md text-sm'
                         >
                             Yesterday
                         </button>
 
-                        <h1 className='text-xl p-2'>
-                            Journal for {journalDate}
+                        <h1 className='text-md lg:text-xl p-2'>
+                            {journalDate || new Date().toDateString()}
                         </h1>
 
                         <button

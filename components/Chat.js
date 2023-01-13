@@ -45,9 +45,9 @@ export default function Chat() {
         }
     }
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col min-h-[65vh]'>
             {!messages.length > 0 ? (
-                <div className='my-2 dark:bg-slate-700 p-4 rounded-md text-lg tracking-wide leading-loose'>
+                <div className='flex-1 my-1 p-4 rounded-md text-xs md:text-md tracking-wide leading-loose'>
                     Welcome to our AI therapy tool. This innovative technology
                     uses advanced machine learning algorithms to provide
                     personalized support and guidance for those looking to
@@ -60,20 +60,20 @@ export default function Chat() {
                     and healthier life.
                 </div>
             ) : (
-                <div>
+                <div className='flex-1 my-1 p-4 rounded-md text-xs md:text-md'>
                     {messages.map((message, index) => (
                         <div
                             key={index}
                             className={`${
                                 message.bot ? 'text-left' : 'text-right'
-                            } my-2`}
+                            } my-2 `}
                         >
                             <div
                                 className={`${
                                     message.bot
-                                        ? 'bg-green-500 text-white'
-                                        : 'bg-blue-500 text-white'
-                                } p-2 rounded-md inline-block`}
+                                        ? 'bg-slate-500 text-white'
+                                        : 'bg-slate-700 text-white'
+                                } p-2 rounded-md inline-block max-w-[50vw]`}
                             >
                                 {message.text}
                             </div>
@@ -81,23 +81,21 @@ export default function Chat() {
                     ))}
                 </div>
             )}
-            <div className='flex-1 my-8'>
-                <div className='w-5/6 mx-auto inset-x-0 bottom-0'>
-                    <input
-                        type='text'
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        className='dark:bg-slate-800 rounded-md w-5/6'
-                        placeholder='How are you feeling today?'
-                    />
-                    <button
-                        type='submit'
-                        onClick={onSubmit}
-                        className='bg-green-500 p-2 rounded-md mx-2'
-                    >
-                        Send
-                    </button>
-                </div>
+            <div className='mx-auto w-80'>
+                <input
+                    type='text'
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className='dark:bg-slate-800 rounded-md w-5/6 text-xs md:text-md'
+                    placeholder='How are you feeling today?'
+                />
+                <button
+                    type='submit'
+                    onClick={onSubmit}
+                    className='bg-green-500 p-2 rounded-md  text-xs md:text-md'
+                >
+                    Send
+                </button>
             </div>
         </div>
     )
