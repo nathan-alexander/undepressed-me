@@ -46,6 +46,11 @@ export default function Header() {
                                 Inspire
                             </div>
                         </Link>
+                        <Link href='/therapy'>
+                            <div className='p-2 text-sm md:text-lg mx-2 hover:bg-sky-100 hover:dark:bg-slate-800 rounded'>
+                                Therapy
+                            </div>
+                        </Link>
                     </>
                 )}
             </div>
